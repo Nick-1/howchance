@@ -8,9 +8,12 @@ export const useRoutes = (isAuthenticated: boolean) => {
         return (
             <Switch>
                 <Route path='/home' exact>
-                    <MainPage />
+                    <MainPage/>
                 </Route>
-                <Redirect to='/home' />
+                <Route path='/topic/:id' exact>
+                    <MainPage/>
+                </Route>
+                <Redirect to='/home'/>
             </Switch>
         )
     }
@@ -18,9 +21,9 @@ export const useRoutes = (isAuthenticated: boolean) => {
     return (
         <Switch>
             <Route path='/'>
-                <AuthPage />
+                <AuthPage/>
             </Route>
-            <Redirect to='/' />
+            <Redirect to='/'/>
         </Switch>
     )
 }

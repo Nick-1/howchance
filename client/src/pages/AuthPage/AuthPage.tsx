@@ -8,9 +8,7 @@ export const AuthPage = () => {
     const auth = useContext(AuthContext)
     const message = useMessage()
     const {loading, error, request, clearError} = useHttp()
-    const [form, setFrom] = useState({
-        email: '', password: ''
-    })
+    const [form, setFrom] = useState({email: '', password: ''})
 
     useEffect(() => {
         message(error)
@@ -21,14 +19,6 @@ export const AuthPage = () => {
         setFrom({...form, [event.target.name]: event.target.value})
     }
 
-    const registerHandler = async () => {
-        try {
-            const data = await request('api/auth/register', 'POST', {...form})
-            message(data.message)
-        } catch (e) {
-        }
-    }
-
     const loginHandler = async () => {
         try {
             const data = await request('api/auth/login', 'POST', {...form})
@@ -37,11 +27,20 @@ export const AuthPage = () => {
         }
     }
 
+    const registerHandler = async () => {
+        try {
+            const data = await request('api/auth/register', 'POST', {...form})
+            message(data.message)
+            await loginHandler()
+        } catch (e) {
+        }
+    }
+
     return (
         <div className='row'>
             <div className="col s6 offset-s3">
-                <h1>How chance</h1>
-                <div className="card blue darken-1">
+                <h1 className='center'>How chance</h1>
+                <div className="card blue">
                     <div className="card-content white-text">
                         <span className="card-title">Authorization</span>
                         <div>
@@ -51,7 +50,9 @@ export const AuthPage = () => {
                                     id='email'
                                     type='text'
                                     name='email'
+                                    value={form.email}
                                     onChange={changeHandler}
+                                    disabled={loading}
                                 />
                                 <label htmlFor="email">Email</label>
                             </div>
@@ -63,6 +64,7 @@ export const AuthPage = () => {
                                     id="password"
                                     type="password"
                                     name='password'
+                                    value={form.password}
                                     onChange={changeHandler}
                                     disabled={loading}
                                 />
@@ -72,12 +74,12 @@ export const AuthPage = () => {
                         </div>
                         <div className='card-action'>
                             <button
-                                className='btn yellow darken-4 mr-10'
+                                className='btn waves-effect grey darken-4 mr-10'
                                 onClick={loginHandler}
                             >Enter
                             </button>
                             <button
-                                className='btn grey lighten-1'
+                                className='btn waves-effect  green'
                                 onClick={registerHandler}
                                 disabled={loading}
                             >Registration

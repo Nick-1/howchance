@@ -1,9 +1,16 @@
 import React from 'react'
+import Topics from "../../components/Topics";
+import Items from "../../components/Items";
+import MainContent from "../../components/MainContent";
 
 export const MainPage = () => {
     return (
         <div>
-            <h1>Main Page</h1>
+            <div className="row">
+                <Topics />
+                <MainContent />
+                <Items />
+            </div>
         </div>
     )
 }

@@ -1,5 +1,18 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 
 .mr-10 {
-  margin-right: 10px;
+    margin-right: 10px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+
+.button-link, .button-link:active {
+    padding: 20px 15px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #fff;
 }

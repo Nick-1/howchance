@@ -4,6 +4,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {useRoutes} from "./routes";
 import {useAuth} from "./hooks/auth.hook";
 import {AuthContext} from "./context/AuthContext";
+import Header from "./components/Header";
 
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
         <AuthContext.Provider value={{
             token, login, logout, userId, isAuthenticated
         }}>
+            { isAuthenticated && <Header/> }
             <Router>
-                <div className="container">
+                <div>
                     {routes}
                 </div>
             </Router>
