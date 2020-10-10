@@ -10,8 +10,7 @@ const initialState: ItopicReducer = {
 const topicReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_TOPIC:
-            state.topicList.push(action.payload)
-            return state
+            return { ...state, topicList: [...state.topicList, action.payload.topic] }
         case REMOVE_TOPIC:
             return {...state, topicList: state.topicList.filter(topic => topic._id !== action.payload)}
         case GET_TOPICS:

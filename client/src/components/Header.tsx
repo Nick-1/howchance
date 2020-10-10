@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import logOutService from "../services/logOutService";
 import {useDispatch} from "react-redux";
 import {logOutAction} from "../actions/login.actions";

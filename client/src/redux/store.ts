@@ -2,11 +2,13 @@ import {createStore, combineReducers} from "redux"
 import topicReducer from "./topicReducer";
 import {RootState} from "../types";
 import loginReducer from "./loginReducer";
+import itemReducer from "./itemReducer";
 
 let reducers = combineReducers<RootState>(
     {
         topics: topicReducer,
-        login: loginReducer
+        items: itemReducer,
+        login: loginReducer,
     }
 )
 

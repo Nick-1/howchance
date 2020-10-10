@@ -8,9 +8,21 @@ export interface Itopics {
     items:[]
 }
 
+export interface IItems {
+    _id: string
+    title: string,
+    description: string,
+    image?: string,
+    topic: string
+}
+
 export interface ItopicReducer {
     topicList: Itopics[],
     currentTopic: null | string
+}
+
+export interface IItemReducer {
+    itemList: IItems[]
 }
 
 interface IGetTopicAction {
@@ -22,6 +34,7 @@ export type TopicsAction = IGetTopicAction
 
 export interface RootState {
     topics: ItopicReducer,
+    items: IItemReducer,
     login: ILoginReducer
 }
 

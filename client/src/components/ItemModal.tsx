@@ -1,16 +1,20 @@
 import React, {useState} from "react";
-import createItemService from "../services/createItemService";
-import {useSelector} from "react-redux";
+import createItemService from "../services/items/createItemService";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
+import {addItemAction} from "../actions/item.actions";
 
 const ItemModal = () => {
 
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
     const currentTopic = useSelector((state: RootState)=> state.topics.currentTopic)
+    const dispatch = useDispatch()
 
-    const addItemHandler = () => {
-        createItemService(title, description, currentTopic)
+    const addItemHandler = async () => {
+        const data = await createItemService(title, description, currentTopic)
+        console.log(data)
+        dispatch(addItemAction(data))
     }
 
     return (

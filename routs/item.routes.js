@@ -14,10 +14,9 @@ router.post('/item', auth, async (req, res) => {
     }
 })
 
-router.get('/item', auth, async (req, res) => {
+router.get('/item/topic_id/:id', auth, async (req, res) => {
     try {
-        const { topic } = req.body
-        const items = await Item.find({ topic })
+        const items = await Item.find({ topic: req.params.id })
         res.json(items)
     } catch (e) {
         await res.status(500).json({message: 'Error of sending the list of Items :( '})

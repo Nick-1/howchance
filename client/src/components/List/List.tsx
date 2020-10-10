@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import {removeTopicAction, setCurrentTopicAction} from "../../actions/topic.actions";
 import style from "./List.module.scss"
+import getItemsService from "../../services/items/getItemsService";
+import {getItemsAction} from "../../actions/item.actions";
 
 const List = () => {
     const topics = useSelector((state: RootState)=> state.topics)
@@ -13,17 +15,17 @@ const List = () => {
         return <p className='center'>You don't have any topic yet</p>
     }
 
-
     const removeTopicHandler = (e: React.MouseEvent, id: string) => {
         e.stopPropagation()
         dispatch(removeTopicAction(id))
         removeTopicService(id)
     }
 
-    const getItemsHandler = ( id: string) => {
+    const getItemsHandler = async ( id: string) => {
         dispatch(setCurrentTopicAction(id))
+        const data = await getItemsService(id)
+        dispatch(getItemsAction(data))
     }
-
 
     return (
         <div className="collection">
@@ -46,6 +48,5 @@ const List = () => {
         </div>
     )
 }
-
 
 export default List

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {addTopicAction, getTopicsAction} from "../actions/topic.actions";
 import createTopicService from "../services/createTopicService";
@@ -10,7 +10,7 @@ const Topics = () => {
     const getTopicList = useCallback(async () => {
         const data = await getTopicsService()
         dispatch(getTopicsAction(data))
-    }, [])
+    }, [dispatch])
 
 
     useEffect(() => {
@@ -21,8 +21,7 @@ const Topics = () => {
         if (event.key === 'Enter') {
             const topic = await createTopicService(event.target.value)
             dispatch(addTopicAction(topic))
-            getTopicList()
-            //event.target.value = ''
+            // event.target.value = ''
         }
     }
 
