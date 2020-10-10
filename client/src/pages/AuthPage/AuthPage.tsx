@@ -2,10 +2,18 @@ import React, {useContext, useEffect, useState} from 'react'
 import {useHttp} from "../../hooks/http.hook";
 import {useMessage} from "../../hooks/message.hook";
 import {AuthContext} from "../../context/AuthContext";
-//import style from "./Auth.module.scss"
+import loginService from "../../services/loginService";
+import registrationService from "../../services/registrationService";
+import {useDispatch} from "react-redux";
+import {loginAction} from "../../actions/login.actions";
+import {useHistory} from "react-router-dom"
+
+import style from "./Auth.module.scss"
 
 export const AuthPage = () => {
-    const auth = useContext(AuthContext)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    //const auth = useContext(AuthContext)
     const message = useMessage()
     const {loading, error, request, clearError} = useHttp()
     const [form, setFrom] = useState({email: '', password: ''})
@@ -21,15 +29,17 @@ export const AuthPage = () => {
 
     const loginHandler = async () => {
         try {
-            const data = await request('api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userId)
+            const data = await loginService(form.email, form.password)
+            dispatch( loginAction(data.user) )
+            if(data && data.user) history.push('/')
         } catch (e) {
         }
     }
 
     const registerHandler = async () => {
         try {
-            const data = await request('api/auth/register', 'POST', {...form})
+            const data = await registrationService(form.email, form.password)
+            console.log(data)
             message(data.message)
             await loginHandler()
         } catch (e) {

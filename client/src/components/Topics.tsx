@@ -1,25 +1,31 @@
-import React, {useContext, useState} from "react";
-import {useHttp} from "../hooks/http.hook";
-import {AuthContext} from "../context/AuthContext";
+import React, {useCallback, useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {addTopicAction, getTopicsAction} from "../actions/topic.actions";
+import createTopicService from "../services/createTopicService";
+import List from "./List/List";
+import getTopicsService from "../services/getTopicsService";
 
 const Topics = () => {
-    const auth = useContext(AuthContext)
-    const {request} = useHttp()
-    const [title, setTitle] = useState('')
+    const dispatch = useDispatch()
+    const getTopicList = useCallback(async () => {
+        const data = await getTopicsService()
+        dispatch(getTopicsAction(data))
+    }, [])
 
-    const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)
 
-    const pressHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    useEffect(() => {
+        getTopicList()
+    }, [getTopicList])
+
+    const pressHandler = async (event: any) => {
         if (event.key === 'Enter') {
-            try {
-
-                const data = await request('api/action/topic', 'POST', { title }, {
-                    Authorization: `Bearer ${auth.token}`
-                })
-                console.log(data)
-            } catch (e) {}
+            const topic = await createTopicService(event.target.value)
+            dispatch(addTopicAction(topic))
+            getTopicList()
+            //event.target.value = ''
         }
     }
+
     return (
         <div className='col m2 s12'>
             <h3>Topics</h3>
@@ -29,19 +35,12 @@ const Topics = () => {
                         id='topic_title'
                         type='text'
                         name='topic_title'
-                        onChange={changeHandler}
                         onKeyPress={pressHandler}
                     />
                     <label htmlFor="topic_title">Type title and press Enter</label>
                 </div>
             </div>
-            <div className="collection">
-                <div className="collection-item">
-                    <span className="badge">1</span>
-                    Alan
-                </div>
-            </div>
-
+            <List/>
         </div>
     )
 }

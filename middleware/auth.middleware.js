@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
         req.user = decoded
         next()
     } catch (e) {
-        res.status(401).json({ message: 'Not authorization ||' })
+        res.status(401).json({ message: 'Token expired' })
     }
 }

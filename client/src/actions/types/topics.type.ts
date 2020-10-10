@@ -1,0 +1,4 @@
+export const ADD_TOPIC = 'ADD_TOPIC'
+export const GET_TOPICS = 'GET_TOPICS'
+export const REMOVE_TOPIC = 'REMOVE_TOPIC'
+export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC'

@@ -23,6 +23,16 @@ router.get('/topic', auth, async (req, res) => {
     }
 })
 
+router.delete('/topic/:id', auth, async (req, res) => {
+    try {
+        const topic = await Topic.findById(req.params.id)
+        await topic.remove()
+        res.json(topic)
+    } catch (e) {
+        await res.status(500).json({message: 'Error while deleting a topic :( '})
+    }
+})
+
 
 router.get('/topic/:id', async (req, res) => {
     try {

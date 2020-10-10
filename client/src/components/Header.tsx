@@ -1,11 +1,17 @@
 import React, {useContext} from "react";
-import {AuthContext} from "../context/AuthContext";
+import logOutService from "../services/logOutService";
+import {useDispatch} from "react-redux";
+import {logOutAction} from "../actions/login.actions";
+import {useHistory} from "react-router-dom"
 
 const Header = () => {
-    const auth = useContext(AuthContext)
+    const history = useHistory()
+    const dispatch = useDispatch()
     const logOutHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault()
-        auth.logout()
+        logOutService()
+        dispatch(logOutAction())
+        history.push('/auth')
     }
 
     return (

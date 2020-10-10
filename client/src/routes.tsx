@@ -2,8 +2,10 @@ import React from "react";
 import {Switch, Route, Redirect} from "react-router-dom"
 import {MainPage} from "./pages/MainPage/MainPage";
 import {AuthPage} from "./pages/AuthPage/AuthPage";
+import store from "./redux/store";
 
-export const useRoutes = (isAuthenticated: boolean) => {
+export const useRoutes = () => {
+    const isAuthenticated = store.getState().login.currentUser.userId
     if (isAuthenticated) {
         return (
             <Switch>
