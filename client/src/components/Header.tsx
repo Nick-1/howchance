@@ -1,7 +1,7 @@
 import React from "react";
-import logOutService from "../services/logOutService";
+import logOutService from "../services/auth/logOutService";
 import {useDispatch} from "react-redux";
-import {logOutAction} from "../actions/login.actions";
+import {logOutAction} from "../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
 
 const Header = () => {

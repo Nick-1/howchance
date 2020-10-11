@@ -1,4 +1,4 @@
-import {IItems} from "../types";
+import {IItems} from "../../types";
 import {ADD_ITEM, GET_ITEMS, REMOVE_ITEM} from "./types/items.type";
 
 export const addItemAction = (item: IItems) => ({ type: ADD_ITEM, payload: item })

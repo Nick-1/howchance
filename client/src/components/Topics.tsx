@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {addTopicAction, getTopicsAction} from "../actions/topic.actions";
-import createTopicService from "../services/createTopicService";
-import List from "./List/List";
-import getTopicsService from "../services/getTopicsService";
+import {addTopicAction, getTopicsAction} from "../redux/actions/topic.actions";
+import createTopicService from "../services/topics/createTopicService";
+import TopicList from "./List/TopicList";
+import getTopicsService from "../services/topics/getTopicsService";
 
 const Topics = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,6 @@ const Topics = () => {
         if (event.key === 'Enter') {
             const topic = await createTopicService(event.target.value)
             dispatch(addTopicAction(topic))
-            // event.target.value = ''
         }
     }
 
@@ -39,7 +38,7 @@ const Topics = () => {
                     <label htmlFor="topic_title">Type title and press Enter</label>
                 </div>
             </div>
-            <List/>
+            <TopicList/>
         </div>
     )
 }

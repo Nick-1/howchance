@@ -9,7 +9,6 @@ const Items = () => {
         const elems = document.querySelectorAll('.modal');
         window.M.Modal.init(elems);
     })
-
     const currentTopic = useSelector((state: RootState)=> state.topics.currentTopic)
 
     return (
@@ -25,7 +24,7 @@ const Items = () => {
                 <i className="material-icons right">add</i>
             </button> }
 
-            <ItemList/>
+            <ItemList  />
 
             <ItemModal/>
         </div>

@@ -1,8 +1,8 @@
 import {createStore, combineReducers} from "redux"
-import topicReducer from "./topicReducer";
+import topicReducer from "./reducers/topicReducer";
 import {RootState} from "../types";
-import loginReducer from "./loginReducer";
-import itemReducer from "./itemReducer";
+import loginReducer from "./reducers/loginReducer";
+import itemReducer from "./reducers/itemReducer";
 
 let reducers = combineReducers<RootState>(
     {

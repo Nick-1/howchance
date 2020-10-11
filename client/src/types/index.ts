@@ -1,5 +1,5 @@
-import {GET_TOPICS} from "../actions/types/topics.type";
-import {LOGIN_USER, LOGOUT_USER} from "../actions/types/login.type";
+import {GET_TOPICS} from "../redux/actions/types/topics.type";
+import {LOGIN_USER, LOGOUT_USER} from "../redux/actions/types/login.type";
 
 export interface Itopics {
     _id: string
@@ -34,7 +34,7 @@ export type TopicsAction = IGetTopicAction
 
 export interface RootState {
     topics: ItopicReducer,
-    items: IItemReducer,
+    items:  IItemReducer,
     login: ILoginReducer
 }
 

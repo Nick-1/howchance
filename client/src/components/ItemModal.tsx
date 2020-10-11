@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import createItemService from "../services/items/createItemService";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
-import {addItemAction} from "../actions/item.actions";
+import {addItemAction} from "../redux/actions/item.actions";
 
 const ItemModal = () => {
 

@@ -1,5 +1,5 @@
 import {ADD_TOPIC, GET_TOPICS, REMOVE_TOPIC, SET_CURRENT_TOPIC} from "./types/topics.type";
-import {Itopics, TopicsAction} from "../types";
+import {Itopics, TopicsAction} from "../../types";
 
 export const addTopicAction = (topic: Itopics) => ({ type: ADD_TOPIC, payload: topic })
 export const getTopicsAction = (topics: Itopics[]): TopicsAction => ({ type: GET_TOPICS, payload: topics })

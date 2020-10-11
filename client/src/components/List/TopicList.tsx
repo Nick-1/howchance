@@ -1,13 +1,13 @@
 import React from "react";
-import removeTopicService from "../../services/removeTopicService";
+import removeTopicService from "../../services/topics/removeTopicService";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
-import {removeTopicAction, setCurrentTopicAction} from "../../actions/topic.actions";
+import {removeTopicAction, setCurrentTopicAction} from "../../redux/actions/topic.actions";
 import style from "./List.module.scss"
 import getItemsService from "../../services/items/getItemsService";
-import {getItemsAction} from "../../actions/item.actions";
+import {getItemsAction} from "../../redux/actions/item.actions";
 
-const List = () => {
+const TopicList = () => {
     const topics = useSelector((state: RootState)=> state.topics)
     const dispatch = useDispatch()
 
@@ -49,4 +49,4 @@ const List = () => {
     )
 }
 
-export default List
+export default TopicList

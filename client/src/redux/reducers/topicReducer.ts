@@ -1,5 +1,5 @@
 import {ADD_TOPIC, GET_TOPICS, REMOVE_TOPIC, SET_CURRENT_TOPIC} from "../actions/types/topics.type";
-import {ItopicReducer} from "../types";
+import {ItopicReducer} from "../../types";
 
 
 const initialState: ItopicReducer = {

@@ -3,12 +3,27 @@ const Item = require('../models/Item')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
+
+router.post('/image', auth, async (req, res, next) => {
+    try {
+        let filedata = req.file;
+        if (!filedata)
+            res.send("Ошибка при загрузке файла");
+        else
+            res.send("Файл загружен");
+    } catch (e) {
+        await res.status(500).json({message: 'Error while uploading image :('})
+    }
+
+})
+
+
 router.post('/item', auth, async (req, res) => {
     try {
-        const { title, description, topic } = req.body
-        const item = new Item({ title, description, topic })
+        const {title, description, topic} = req.body
+        const item = new Item({title, description, topic})
         await item.save()
-        res.status(201).json({ item })
+        res.status(201).json({item})
     } catch (e) {
         await res.status(500).json({message: 'Error while creating a Item :('})
     }
@@ -16,7 +31,7 @@ router.post('/item', auth, async (req, res) => {
 
 router.get('/item/topic_id/:id', auth, async (req, res) => {
     try {
-        const items = await Item.find({ topic: req.params.id })
+        const items = await Item.find({topic: req.params.id})
         res.json(items)
     } catch (e) {
         await res.status(500).json({message: 'Error of sending the list of Items :( '})

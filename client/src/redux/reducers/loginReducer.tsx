@@ -1,4 +1,4 @@
-import {ILoginReducer} from "../types";
+import {ILoginReducer} from "../../types";
 import {LOGIN_USER, LOGOUT_USER} from "../actions/types/login.type";
 
 

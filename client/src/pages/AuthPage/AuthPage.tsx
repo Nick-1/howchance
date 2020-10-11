@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {useHttp} from "../../hooks/http.hook";
 import {useMessage} from "../../hooks/message.hook";
-import loginService from "../../services/loginService";
-import registrationService from "../../services/registrationService";
+import loginService from "../../services/auth/loginService";
+import registrationService from "../../services/auth/registrationService";
 import {useDispatch} from "react-redux";
-import {loginAction} from "../../actions/login.actions";
+import {loginAction} from "../../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
 
 //import style from "./Auth.module.scss"

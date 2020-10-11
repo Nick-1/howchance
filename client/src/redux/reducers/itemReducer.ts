@@ -1,4 +1,4 @@
-import {IItemReducer} from "../types";
+import {IItemReducer} from "../../types";
 import {ADD_ITEM, GET_ITEMS, REMOVE_ITEM} from "../actions/types/items.type";
 
 

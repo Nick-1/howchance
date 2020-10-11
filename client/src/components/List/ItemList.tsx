@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import style from "./List.module.scss"
-import {removeItemAction} from "../../actions/item.actions";
+import {removeItemAction} from "../../redux/actions/item.actions";
 import removeItemService from "../../services/items/removeItemService";
 
 const ItemList = () => {
@@ -20,7 +20,8 @@ const ItemList = () => {
     }
 
     const getItemHandler = (id: string) => {
-        console.log('item_id:', id)
+        const item = items.itemList.find(item => item._id === id)
+        console.log(item)
     }
 
     return (
@@ -29,7 +30,8 @@ const ItemList = () => {
 
             {items.itemList.map(item => (
                 <div
-                    className={`collection-item ${style.customListItem}`}
+                    data-target="modal1"
+                    className={`collection-item modal-trigger ${style.customListItem}`}
                     key={item._id}
                     onClick={ (e) => getItemHandler(item._id) }
                 >
