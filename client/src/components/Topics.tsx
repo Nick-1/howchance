@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {addTopicAction, getTopicsAction} from "../redux/actions/topic.actions";
 import createTopicService from "../services/topics/createTopicService";
@@ -7,21 +7,25 @@ import getTopicsService from "../services/topics/getTopicsService";
 
 const Topics = () => {
     const dispatch = useDispatch()
+    const [title, setTitle] = useState('')
     const getTopicList = useCallback(async () => {
         const data = await getTopicsService()
         dispatch(getTopicsAction(data))
     }, [dispatch])
 
-
     useEffect(() => {
         getTopicList()
     }, [getTopicList])
 
-    const pressHandler = async (event: any) => {
+    const pressHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            const topic = await createTopicService(event.target.value)
+            const topic = await createTopicService(title)
             dispatch(addTopicAction(topic))
+            setTitle('')
         }
+    }
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setTitle(e.target.value)
     }
 
     return (
@@ -34,6 +38,8 @@ const Topics = () => {
                         type='text'
                         name='topic_title'
                         onKeyPress={pressHandler}
+                        value={title}
+                        onChange={changeHandler}
                     />
                     <label htmlFor="topic_title">Type title and press Enter</label>
                 </div>

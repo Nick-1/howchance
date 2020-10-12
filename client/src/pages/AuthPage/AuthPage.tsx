@@ -37,7 +37,6 @@ export const AuthPage = () => {
     const registerHandler = async () => {
         try {
             const data = await registrationService(form.email, form.password)
-            console.log(data)
             message(data.message)
             await loginHandler()
         } catch (e) {

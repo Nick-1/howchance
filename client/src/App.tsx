@@ -11,12 +11,14 @@ import store from "./redux/store";
 import {MainPage} from "./pages/MainPage/MainPage";
 import {AuthPage} from "./pages/AuthPage/AuthPage";
 import insertToken from "./interceptors";
+import ItemModal from "./components/ItemModal";
 
 
 function App() {
     useEffect(() => {
         insertToken()
     }, [])
+
     const {token, login, logout, userId, ready} = useAuth()
     const isAuthenticated = !!token
     if (!ready) return <Loader/>
@@ -26,7 +28,6 @@ function App() {
             <AuthContext.Provider value={{
                 token, login, logout, userId, isAuthenticated
             }}>
-
                 <Router>
                     <Header/>
                     <Route
@@ -48,6 +49,7 @@ function App() {
                     >
                     </Route>
                 </Router>
+                <ItemModal/>
             </AuthContext.Provider>
         </Provider>
     );

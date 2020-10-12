@@ -1,15 +1,17 @@
 import React, {useEffect} from "react";
 import ItemModal from "./ItemModal";
 import ItemList from "./List/ItemList";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
+import {setCurrentItemAction} from "../redux/actions/item.actions";
 
 const Items = () => {
-    useEffect(() => {
-        const elems = document.querySelectorAll('.modal');
-        window.M.Modal.init(elems);
-    })
+
     const currentTopic = useSelector((state: RootState)=> state.topics.currentTopic)
+    const dispatch = useDispatch()
+    const clearCurrentItem = () => {
+        dispatch(setCurrentItemAction('null'))
+    }
 
     return (
         <div className='col m2 s12'>
@@ -20,13 +22,12 @@ const Items = () => {
                 data-target="modal1"
                 className="btn waves-effect waves-light modal-trigger"
                 type="button"
-                name="action">Add Item
+                name="action"
+                onClick={clearCurrentItem}
+            >Add Item
                 <i className="material-icons right">add</i>
             </button> }
-
-            <ItemList  />
-
-            <ItemModal/>
+            <ItemList />
         </div>
     )
 }

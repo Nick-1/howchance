@@ -1,20 +1,48 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import createItemService from "../services/items/createItemService";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
 import {addItemAction} from "../redux/actions/item.actions";
+import server from "../helpers/appVariables"
 
 const ItemModal = () => {
 
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
-    const currentTopic = useSelector((state: RootState)=> state.topics.currentTopic)
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [image, setImage] = useState('')
+    const currentTopic: any = useSelector((state: RootState) => state.topics.currentTopic)
+    const currentItem = useSelector((state: RootState) => state.items.currentItem)
     const dispatch = useDispatch()
+    const formData = new FormData()
+
+    useEffect(() => {
+        if (currentItem) {
+            setTitle(currentItem.title)
+            setDescription(currentItem.description)
+            if (currentItem.image) setImage(currentItem.image)
+        }
+    }, [currentItem])
+
+    useEffect(() => {
+        const elems = document.querySelectorAll('.modal');
+        window.M.Modal.init(elems, {onCloseEnd: clearFields});
+    }, [])
 
     const addItemHandler = async () => {
-        const data = await createItemService(title, description, currentTopic)
-        console.log(data)
+        formData.append('title', title)
+        formData.append('description', description)
+        formData.append('topic', currentTopic)
+        const data = await createItemService(formData)
         dispatch(addItemAction(data))
+    }
+
+    const changeFileInputHandler = (e: any) => {
+        formData.append("avatar", e.target.files[0]);
+    }
+
+    function clearFields() {
+        setTitle('')
+        setDescription('')
     }
 
     return (
@@ -30,9 +58,10 @@ const ItemModal = () => {
                                     id="title"
                                     type="text"
                                     className="validate"
-                                    onChange={ e => setTitle(e.target.value) }
+                                    onChange={e => setTitle(e.target.value)}
+                                    placeholder='Title'
+                                    value={title}
                                 />
-                                <label htmlFor="title">Title</label>
                             </div>
                         </div>
                         <div className="row">
@@ -40,10 +69,24 @@ const ItemModal = () => {
                                 <textarea
                                     id="description"
                                     className="materialize-textarea"
-                                    onChange={ e => setDescription(e.target.value) }
+                                    onChange={e => setDescription(e.target.value)}
+                                    placeholder='Description'
+                                    value={description}
                                 />
-                                <label htmlFor="description">Description</label>
                             </div>
+                        </div>
+                        <div className="file-field input-field">
+                            <div className="btn">
+                                <i className="material-icons left">photo</i>
+                                <span>Image</span>
+                                <input type="file" name="avatar" onChange={changeFileInputHandler}/>
+                            </div>
+                            <div className="file-path-wrapper">
+                                <input className="file-path validate" type="text"/>
+                            </div>
+                        </div>
+                        <div>
+                            <img src={`${server.url}/${image}`} alt=""/>
                         </div>
                     </form>
                 </div>

@@ -15,7 +15,7 @@ const MainContent = () => {
                 <h1 className='center'>Main Page</h1>
             </div>
             <form action="#">
-                <div className="file-field input-field">
+                 <div className="file-field input-field">
                     <div className="btn">
                         <span>File</span>
                         <input type="file" name="avatar" onChange={ (e) => uploadHandler (e) } />

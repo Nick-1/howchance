@@ -2,10 +2,13 @@ const {Router} = require('express')
 const Item = require('../models/Item')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
+const config = require('config')
+const dist = config.get('destination')
 
 
 router.post('/image', auth, async (req, res, next) => {
     try {
+        console.log(req.dir)
         let filedata = req.file;
         if (!filedata)
             res.send("Ошибка при загрузке файла");
@@ -17,11 +20,10 @@ router.post('/image', auth, async (req, res, next) => {
 
 })
 
-
-router.post('/item', auth, async (req, res) => {
+router.post('/item', auth, async (req, res, nex) => {
     try {
         const {title, description, topic} = req.body
-        const item = new Item({title, description, topic})
+        const item = new Item({title, description, topic, image: req.file.path || null})
         await item.save()
         res.status(201).json({item})
     } catch (e) {

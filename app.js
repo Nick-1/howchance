@@ -3,17 +3,21 @@ const config = require('config')
 const mongoose = require('mongoose')
 const multer = require("multer");
 const app = express()
+const path = require('path')
 const PORT = config.get('port') || 5000
+const dist = config.get('destination')
 const storageConfig = multer.diskStorage({
-    destination: (req, file, cb) =>{
+    destination: (req, file, cb) => {
         cb(null, "uploads");
     },
     filename: (req, file, cb) =>{
-        cb(null, Date.now() + '_' + file.originalname);
+        const name = Date.now() + '_' + file.originalname
+        req.dir = `${dist}/${name}`
+        req.test = path.join(__dirname, dist, name)
+        cb(null, name);
     }
 });
 const fileFilter = (req, file, cb) => {
-
     if(file.mimetype === "image/png" ||
     file.mimetype === "image/jpg"||
     file.mimetype === "image/jpeg"){
@@ -25,9 +29,9 @@ const fileFilter = (req, file, cb) => {
  }
 
 
-app.use(express.static(__dirname));
 app.use(express.json({ extended: true }))
 app.use(multer({storage:storageConfig, fileFilter: fileFilter}).single("avatar"));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use('/api/auth', require('./routs/auth.routes'))
 app.use('/api/action', require('./routs/topic.routes'))
 app.use('/api/action', require('./routs/item.routes'))

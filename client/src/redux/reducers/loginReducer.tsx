@@ -5,7 +5,9 @@ import {LOGIN_USER, LOGOUT_USER} from "../actions/types/login.type";
 const initialState: ILoginReducer = {
     currentUser: {
         email: null,
-        userId: null
+        userId: null,
+        lang: null,
+        theme: null
     }
 }
 

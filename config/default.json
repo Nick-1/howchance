@@ -1,5 +1,6 @@
 {
   "port": 5000,
   "jwtSecret": "_important Phrase_",
-  "mongoUri": "mongodb+srv://nikita:mongotestdb@cluster0.ihxb6.azure.mongodb.net/howchance?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://nikita:mongotestdb@cluster0.ihxb6.azure.mongodb.net/howchance?retryWrites=true&w=majority",
+  "destination": "uploads"
 }

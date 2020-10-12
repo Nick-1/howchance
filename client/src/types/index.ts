@@ -14,6 +14,7 @@ export interface IItems {
     description: string,
     image?: string,
     topic: string
+    count: Number
 }
 
 export interface ItopicReducer {
@@ -22,7 +23,8 @@ export interface ItopicReducer {
 }
 
 export interface IItemReducer {
-    itemList: IItems[]
+    itemList: IItems[],
+    currentItem: IItems | null
 }
 
 interface IGetTopicAction {
@@ -45,7 +47,9 @@ export interface ILoginReducer {
 
 export type currentUserType = {
     email: null | string,
-    userId: null | string
+    userId: null | string,
+    lang: null | string ,
+    theme: null | string
 }
 
 export type LogOutActionType = {
