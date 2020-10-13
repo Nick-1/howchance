@@ -1,15 +1,14 @@
 import React, {useEffect} from "react";
 import logOutService from "../services/auth/logOutService";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {loginAction, logOutAction} from "../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
 import getUserService from "../services/auth/getUserService";
-import {RootState} from "../types";
 
 const Header = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const currentUser = useSelector(((state: RootState) => state.login.currentUser))
+    const token = localStorage.getItem('token')
 
     const logOutHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault()
@@ -24,8 +23,8 @@ const Header = () => {
     useEffect(() => {
         const elems = document.querySelectorAll('select')
         window.M.FormSelect.init(elems)
-        // if (currentUser && currentUser.userId) getUserService().then(user => dispatch(loginAction(user)))
-    })
+        token ? getUserService().then(user => dispatch(loginAction(user))) : history.push('/auth')
+    },[])
 
     return (
         <nav>

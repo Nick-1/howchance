@@ -24,23 +24,40 @@ export const AuthPage = () => {
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFrom({...form, [event.target.name]: event.target.value})
     }
-
     const loginHandler = async () => {
-        try {
-            const data = await loginService(form.email, form.password)
-            dispatch( loginAction(data.user) )
-            if(data && data.user) history.push('/')
-        } catch (e) {
+        if (checkEmail(form.email) && checkPassword(form.password)) {
+            try {
+                const data = await loginService(form.email, form.password)
+                dispatch(loginAction(data.user))
+                if (data && data.user) history.push('/')
+            } catch (e) {
+            }
         }
     }
 
     const registerHandler = async () => {
-        try {
-            const data = await registrationService(form.email, form.password)
-            message(data.message)
-            await loginHandler()
-        } catch (e) {
+        if (checkEmail(form.email) && checkPassword(form.password)) {
+            try {
+                const data = await registrationService(form.email, form.password)
+                message(data.message)
+                await loginHandler()
+            } catch (e) {
+            }
         }
+    }
+
+    function checkEmail(email: string) {
+        const re = /\S+@\S+\.\S+/;
+        const notValid = !re.test(email)
+        if (notValid) message('Use correct email please')
+        return re.test(email);
+    }
+
+    function checkPassword(password: string) {
+        const re = /^[0-9a-zA-Z]{8,}$/
+        const notValid = !re.test(password)
+        if (notValid) message('Password should contain at leas 8 characters')
+        return re.test(password);
     }
 
     return (
@@ -53,7 +70,6 @@ export const AuthPage = () => {
                         <div>
                             <div className="input-field">
                                 <input
-                                    placeholder="Email"
                                     id='email'
                                     type='text'
                                     name='email'
@@ -67,7 +83,6 @@ export const AuthPage = () => {
                         <div>
                             <div className="input-field">
                                 <input
-                                    placeholder="Password"
                                     id="password"
                                     type="password"
                                     name='password'
@@ -76,7 +91,7 @@ export const AuthPage = () => {
                                     disabled={loading}
                                 />
 
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email">Password</label>
                             </div>
                         </div>
                         <div className='card-action'>

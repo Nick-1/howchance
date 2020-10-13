@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import ItemModal from "./ItemModal/ItemModal";
+import React from "react";
 import ItemList from "./List/ItemList";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
