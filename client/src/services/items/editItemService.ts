@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const createItemService = async (data: any) => {
+const editItemService = async (data: any, id: string) => {
     try {
-        const response = await axios.post(
-            'api/action/item', data);
+        const response = await axios.put(
+            `api/action/item/${id}`, data);
         return response.data
     } catch (error) {
         console.error(error);
     }
 }
 
-export default createItemService
+export default editItemService

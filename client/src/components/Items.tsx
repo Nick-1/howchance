@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import ItemModal from "./ItemModal";
+import ItemModal from "./ItemModal/ItemModal";
 import ItemList from "./List/ItemList";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
@@ -14,7 +14,7 @@ const Items = () => {
     }
 
     return (
-        <div className='col m2 s12'>
+        <div className='col m4 s12'>
             <h3>Items</h3>
 
             { currentTopic &&

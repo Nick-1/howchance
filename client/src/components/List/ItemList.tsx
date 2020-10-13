@@ -33,7 +33,7 @@ const ItemList = () => {
                     key={item._id}
                     onClick={ (e) => getItemHandler(item._id) }
                 >
-                    {item.title}
+                    <span className={`${style.itemListText}`}>{item.title}</span>
                     <button
                         type='button'
                         className="btn-floating btn-small waves-effect waves-light red right"

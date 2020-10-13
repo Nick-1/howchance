@@ -5,21 +5,6 @@ const router = Router()
 const config = require('config')
 const dist = config.get('destination')
 
-
-router.post('/image', auth, async (req, res, next) => {
-    try {
-        console.log(req.dir)
-        let filedata = req.file;
-        if (!filedata)
-            res.send("Ошибка при загрузке файла");
-        else
-            res.send("Файл загружен");
-    } catch (e) {
-        await res.status(500).json({message: 'Error while uploading image :('})
-    }
-
-})
-
 router.post('/item', auth, async (req, res, nex) => {
     try {
         const {title, description, topic} = req.body
@@ -28,6 +13,18 @@ router.post('/item', auth, async (req, res, nex) => {
         res.status(201).json({item})
     } catch (e) {
         await res.status(500).json({message: 'Error while creating a Item :('})
+    }
+})
+
+router.put('/item/:id', auth, async (req, res, nex) => {
+    try {
+        const update = {title, description} = req.body;
+        if (req.file) update.image = req.file.path
+        const item = await Item.findByIdAndUpdate(req.params.id, update, {new: true})
+        console.log(update)
+        res.status(201).json({item})
+    } catch (e) {
+        await res.status(500).json({message: 'Error while editing a Item :('})
     }
 })
 

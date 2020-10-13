@@ -4,3 +4,9 @@
   justify-content: space-between;
   cursor: pointer;
 }
+
+.itemListText {
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

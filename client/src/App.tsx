@@ -11,7 +11,7 @@ import store from "./redux/store";
 import {MainPage} from "./pages/MainPage/MainPage";
 import {AuthPage} from "./pages/AuthPage/AuthPage";
 import insertToken from "./interceptors";
-import ItemModal from "./components/ItemModal";
+import ItemModal from "./components/ItemModal/ItemModal";
 
 
 function App() {

@@ -1,14 +1,14 @@
 import React from 'react'
 import Topics from "../../components/Topics";
 import Items from "../../components/Items";
-import MainContent from "../../components/MainContent";
+import Spinner from "../../components/Spinner/Spinner";
 
 export const MainPage = () => {
     return (
         <div>
             <div className="row">
                 <Topics />
-                <MainContent />
+                <Spinner />
                 <Items />
             </div>
         </div>

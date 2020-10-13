@@ -29,7 +29,7 @@ const Topics = () => {
     }
 
     return (
-        <div className='col m2 s12'>
+        <div className='col m3 s12'>
             <h3>Topics</h3>
             <div>
                 <div className="input-field">
