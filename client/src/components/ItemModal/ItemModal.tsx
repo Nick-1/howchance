@@ -6,6 +6,7 @@ import {addItemAction, editItemAction} from "../../redux/actions/item.actions";
 import server from "../../helpers/appVariables"
 import editItemService from "../../services/items/editItemService";
 import style from "./ItemModal.module.scss"
+import {isValid} from "../../hooks/validation.hook";
 
 const ItemModal = () => {
 
@@ -33,15 +34,18 @@ const ItemModal = () => {
     }, [])
 
     const addOrEditItemHandler = async () => {
-        formData.append('title', title)
-        formData.append('description', description)
-        formData.append('topic', currentTopic)
-        if (currentItem) {
-            const data = await editItemService(formData, currentItem._id)
-            dispatch(editItemAction(currentItem._id, data))
-        } else {
-            const data = await createItemService(formData)
-            dispatch(addItemAction(data))
+
+        if (isValid('title', title)) {
+            formData.append('title', title)
+            formData.append('description', description)
+            formData.append('topic', currentTopic)
+            if (currentItem) {
+                const data = await editItemService(formData, currentItem._id)
+                dispatch(editItemAction(currentItem._id, data))
+            } else {
+                const data = await createItemService(formData)
+                dispatch(addItemAction(data))
+            }
         }
     }
 
@@ -52,6 +56,7 @@ const ItemModal = () => {
     function clearFields() {
         setTitle('')
         setDescription('')
+        setImage('')
     }
 
     return (
@@ -96,7 +101,7 @@ const ItemModal = () => {
                             </div>
                         </div>
                         <div className={`${style.avatarBox}`}>
-                            <img className={`${style.avatar}`} src={`${serverUrl}/${image}`} alt=""/>
+                            {image &&  <img className={`${style.avatar}`} src={`${serverUrl}/${image}`} alt=""/>}
                         </div>
                     </form>
                 </div>
@@ -107,8 +112,8 @@ const ItemModal = () => {
                    className="modal-close waves-effect waves-light btn"
                    onClick={addOrEditItemHandler}
                 >
-                    { currentItem && <>Edit <i className="material-icons right">edit</i></> }
-                    { !currentItem && <>Add <i className="material-icons right">add</i></> }
+                    {currentItem && <>Edit <i className="material-icons right">edit</i></>}
+                    {!currentItem && <>Add <i className="material-icons right">add</i></>}
                 </a>
             </div>
         </div>

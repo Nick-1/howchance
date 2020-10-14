@@ -4,6 +4,7 @@ import {addTopicAction, getTopicsAction} from "../redux/actions/topic.actions";
 import createTopicService from "../services/topics/createTopicService";
 import TopicList from "./List/TopicList";
 import getTopicsService from "../services/topics/getTopicsService";
+import {isValid} from "../hooks/validation.hook";
 
 const Topics = () => {
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const Topics = () => {
     }, [getTopicList])
 
     const pressHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && isValid('title', title)) {
             const topic = await createTopicService(title)
             dispatch(addTopicAction(topic))
             setTitle('')

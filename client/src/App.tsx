@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import "materialize-css"
 import {BrowserRouter as Router} from "react-router-dom";
 import {useAuth} from "./hooks/auth.hook";
-import {AuthContext} from "./context/AuthContext";
 import Header from "./components/Header";
 import {Loader} from "./components/Loader";
 import {Provider} from "react-redux";
@@ -19,38 +18,34 @@ function App() {
         insertToken()
     }, [])
 
-    const {token, login, logout, userId, ready} = useAuth()
-    const isAuthenticated = !!token
+    const {ready} = useAuth()
+
     if (!ready) return <Loader/>
 
     return (
         <Provider store={store}>
-            <AuthContext.Provider value={{
-                token, login, logout, userId, isAuthenticated
-            }}>
-                <Router>
-                    <Header/>
-                    <Route
-                        render={() => <AuthPage/>}
-                        path='/auth'
-                        exact
-                    >
-                    </Route>
-                    <Route
-                        render={() => <MainPage/>}
-                        path='/'
-                        exact
-                    >
-                    </Route>
-                    <Route
-                        render={() => <MainPage/>}
-                        path='/topic/:id'
-                        exact
-                    >
-                    </Route>
-                </Router>
-                <ItemModal/>
-            </AuthContext.Provider>
+            <Router>
+                <Header/>
+                <Route
+                    render={() => <AuthPage/>}
+                    path='/auth'
+                    exact
+                >
+                </Route>
+                <Route
+                    render={() => <MainPage/>}
+                    path='/'
+                    exact
+                >
+                </Route>
+                <Route
+                    render={() => <MainPage/>}
+                    path='/topic/:id'
+                    exact
+                >
+                </Route>
+            </Router>
+            <ItemModal/>
         </Provider>
     );
 }

@@ -6,8 +6,7 @@ import registrationService from "../../services/auth/registrationService";
 import {useDispatch} from "react-redux";
 import {loginAction} from "../../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
-
-//import style from "./Auth.module.scss"
+import {isValid} from "../../hooks/validation.hook";
 
 export const AuthPage = () => {
     const dispatch = useDispatch()
@@ -25,39 +24,23 @@ export const AuthPage = () => {
         setFrom({...form, [event.target.name]: event.target.value})
     }
     const loginHandler = async () => {
-        if (checkEmail(form.email) && checkPassword(form.password)) {
+        if (isValid('email', form.email) && isValid('password', form.password)) {
             try {
                 const data = await loginService(form.email, form.password)
                 dispatch(loginAction(data.user))
                 if (data && data.user) history.push('/')
-            } catch (e) {
-            }
+            } catch (e) {}
         }
     }
 
     const registerHandler = async () => {
-        if (checkEmail(form.email) && checkPassword(form.password)) {
+        if (isValid('email', form.email) && isValid('password', form.password)) {
             try {
                 const data = await registrationService(form.email, form.password)
                 message(data.message)
                 await loginHandler()
-            } catch (e) {
-            }
+            } catch (e) {}
         }
-    }
-
-    function checkEmail(email: string) {
-        const re = /\S+@\S+\.\S+/;
-        const notValid = !re.test(email)
-        if (notValid) message('Use correct email please')
-        return re.test(email);
-    }
-
-    function checkPassword(password: string) {
-        const re = /^[0-9a-zA-Z]{8,}$/
-        const notValid = !re.test(password)
-        if (notValid) message('Password should contain at leas 8 characters')
-        return re.test(password);
     }
 
     return (
