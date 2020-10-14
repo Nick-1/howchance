@@ -15,3 +15,39 @@
     border: none;
     color: #fff;
 }
+
+#root, body, .wrapper {
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.page-footer {
+    padding-top: 0;
+}
+
+.header-select .select-wrapper {
+    width: 130px;
+}
+
+.header-select .select-wrapper input {
+    color: #fff;
+}
+.header-select .select-wrapper input.select-dropdown {
+    border-bottom: 1px solid #fff;
+}
+
+.header-select .select-wrapper .caret {
+    fill: #fff;
+}
+
+.nav-wrapper .head-menu > li {
+    margin-left: 15px;
+}

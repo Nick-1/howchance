@@ -38,7 +38,7 @@ const TopicList = () => {
                     <span className={`${style.itemListText}`}>{topic.title}</span>
                     <button
                         type='button'
-                        className="btn-floating btn-small waves-effect waves-light red right"
+                        className="btn-floating btn-small waves-effect waves-light right"
                         onClick={ (e) => removeTopicHandler(e, topic._id) }>
                         <i className="material-icons center">clear</i>
                         button

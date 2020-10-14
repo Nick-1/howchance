@@ -21,7 +21,6 @@ router.put('/item/:id', auth, async (req, res, nex) => {
         const update = {title, description} = req.body;
         if (req.file) update.image = req.file.path
         const item = await Item.findByIdAndUpdate(req.params.id, update, {new: true})
-        console.log(update)
         res.status(201).json({item})
     } catch (e) {
         await res.status(500).json({message: 'Error while editing a Item :('})

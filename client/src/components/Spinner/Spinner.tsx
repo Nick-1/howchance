@@ -9,7 +9,7 @@ const Spinner = () => {
         <div className='col m5 s12'>
             <div>
                 <div className={`${style.spinnerBox}`}>
-                    <div className={`${style.spinner}`}></div>
+                    <div className={`${style.spinner} spinner-bgcColor`}></div>
                 </div>
             </div>
         </div>

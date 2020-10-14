@@ -1,16 +1,18 @@
 import React, {useEffect} from "react";
 import logOutService from "../services/auth/logOutService";
 import {useDispatch, useSelector} from "react-redux";
-import {loginAction, logOutAction} from "../redux/actions/login.actions";
+import {changeThemeAction, loginAction, logOutAction} from "../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
 import getUserService from "../services/auth/getUserService";
 import {RootState} from "../types";
+import changeThemeService from "../services/auth/changeThemeService";
 
 const Header = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
     const currentUser = useSelector((state: RootState) => state.login.currentUser)
+    const theme: any = useSelector((state: RootState) => state.login.currentUser.theme)
 
     const logOutHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault()
@@ -26,24 +28,37 @@ const Header = () => {
     }, [dispatch, history, token, currentUser.userId])
 
 
+    const changeThemeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(changeThemeAction(e.target.value))
+        changeThemeService(e.target.value, currentUser.userId)
+    }
 
     return (
         <nav>
-            <div className="nav-wrapper blue">
+            <div className="nav-wrapper">
                 <span className="brand-logo ml-10">
                     <i className="material-icons left">sentiment_satisfied</i> How Chance!
                 </span>
 
                 {currentUser.userId &&
-                <ul id="nav-mobile" className="right hide-on-med-and-down">
+                <ul id="nav-mobile" className="right hide-on-med-and-down head-menu">
                     <li>
-                        <select defaultValue='day'>
-                            <option value="day">Day</option>
-                            <option value="night">Night</option>
-                        </select>
+                        <span className='header-select'>
+                            <select defaultValue={theme}
+                                    className='header-select'
+                                    onChange={changeThemeHandler}>
+                                <option value="day">Day</option>
+                                <option value="night">Night</option>
+                            </select>
+                       </span>
                     </li>
                     <li>
-                        <button className='btn blue waves-effect lighten-1 mr-10'>Lang: Eng</button>
+                        <span className='header-select'>
+                            <select defaultValue='en'>
+                                <option value="en">Lang: EN</option>
+                                <option value="ru">Язык: РУС</option>
+                            </select>
+                        </span>
                     </li>
 
                     <li className='chance-list-item'>

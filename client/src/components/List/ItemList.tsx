@@ -36,7 +36,7 @@ const ItemList = () => {
                     <span className={`${style.itemListText}`}>{item.title}</span>
                     <button
                         type='button'
-                        className="btn-floating btn-small waves-effect waves-light red right"
+                        className="btn-floating btn-small waves-effect waves-light right"
                         onClick={ (e) => removeItemHandler(e, item._id) }>
                         <i className="material-icons center">clear</i>
                         button

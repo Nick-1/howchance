@@ -1,0 +1,64 @@
+$baseColor: #2196F3;
+$baseNightColor: #415971;
+$baseMainColor: #fff;
+$baseMainColorNight: #424242;
+$textColor: #000;
+$textColorNight: #bbb;
+$buttonBaseColorNight: #292828;
+$spinnerColorNight: #273c52;
+$modalBgColorNight: #4a4646;
+
+
+h1, h2, h3, h4, h5 {
+  color: $textColor
+}
+
+.nav-wrapper, .page-footer {
+  background-color: $baseColor;
+}
+
+main {
+  background-color: $baseMainColor;
+}
+
+.collection .collection-item {
+  background: $baseMainColor;
+}
+
+.spinner-bgcColor {
+  background-color: $baseColor;
+}
+
+.night {
+  color: $textColorNight;
+
+  .nav-wrapper, .page-footer {
+    background-color: $baseNightColor;
+  }
+
+  main {
+    background-color: $baseMainColorNight;
+  }
+
+    h1, h2, h3, h4, h5 {
+      color: $textColorNight
+    }
+
+  .collection .collection-item {
+    background: $baseNightColor;
+  }
+
+  .btn, .btn-floating {
+    background-color: $buttonBaseColorNight;
+  }
+
+  .spinner-bgcColor {
+    background-color: $spinnerColorNight;
+  }
+  .modal, .modal .modal-footer {
+    background-color: $modalBgColorNight;
+  }
+  input, textarea {
+    color: $textColorNight;
+  }
+}

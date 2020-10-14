@@ -79,5 +79,32 @@ router.get(
         }
     })
 
+router.get(
+    '/user',
+    async (req, res) => {
+        try {
+            const token = req.headers.authorization.split(' ')[1]
+            if (!token) {
+                res.status(401).json({message: 'Not authorization'})
+            }
+            const decoded = jwt.verify(token, config.get('jwtSecret'))
+            const user = await User.findById(decoded.userId)
+            res.json( { userId: user.id, email: user.email, lang: user.lang, theme: user.theme})
+
+        } catch (e) {
+            await res.status(500).json({message: ' Error getting user :('})
+        }
+    })
+
+router.put('/user/:id/theme', async (req, res) => {
+    try {
+        const update = {theme} = req.body;
+        const user = await User.findByIdAndUpdate(req.params.id, update, {new: true})
+        res.status(201).json({user})
+    } catch (e) {
+        await res.status(500).json({message: 'Error while editing a theme :('})
+    }
+})
+
 
 module.exports = router
