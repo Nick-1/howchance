@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
-import createItemService from "../../services/items/createItemService";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import {addItemAction, editItemAction} from "../../redux/actions/item.actions";
 import server from "../../helpers/appVariables"
-import editItemService from "../../services/items/editItemService";
 import style from "./ItemModal.module.scss"
 import {isValid} from "../../hooks/validation.hook";
+import itemsService from "../../services/itemsService";
 
 const ItemModal = () => {
 
@@ -40,10 +39,10 @@ const ItemModal = () => {
             formData.append('description', description)
             formData.append('topic', currentTopic)
             if (currentItem) {
-                const data = await editItemService(formData, currentItem._id)
+                const data = await itemsService.edit(formData, currentItem._id)
                 dispatch(editItemAction(currentItem._id, data))
             } else {
-                const data = await createItemService(formData)
+                const data = await itemsService.create(formData)
                 dispatch(addItemAction(data))
             }
         }

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import style from "./List.module.scss"
 import {removeItemAction, setCurrentItemAction} from "../../redux/actions/item.actions";
-import removeItemService from "../../services/items/removeItemService";
+import itemsService from "../../services/itemsService";
 
 const ItemList = () => {
     const items = useSelector((state: RootState)=> state.items)
@@ -16,8 +16,9 @@ const ItemList = () => {
     const removeItemHandler = (e: React.MouseEvent, id: string) => {
         e.stopPropagation()
         dispatch(removeItemAction(id))
-        removeItemService(id)
+        itemsService.remove(id)
     }
+
 
     const getItemHandler = (id: string) => {
         dispatch(setCurrentItemAction(id))

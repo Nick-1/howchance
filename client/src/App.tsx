@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "materialize-css"
 import {BrowserRouter as Router} from "react-router-dom";
-import {useAuth} from "./hooks/auth.hook";
 import Header from "./components/Header";
 import {Loader} from "./components/Loader";
 import {useSelector} from "react-redux";
@@ -15,12 +14,12 @@ import "./App.scss"
 
 function App() {
     useEffect(() => {
+         setReady(true)
         insertToken()
     }, [])
 
-    const {ready} = useAuth()
+    const [ready, setReady] = useState(false)
     const theme: any = useSelector((state: RootState) => state.login.currentUser.theme)
-
 
     if (!ready) return <Loader/>
 

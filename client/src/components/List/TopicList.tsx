@@ -1,11 +1,11 @@
 import React from "react";
-import removeTopicService from "../../services/topics/removeTopicService";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import {removeTopicAction, setCurrentTopicAction} from "../../redux/actions/topic.actions";
 import style from "./List.module.scss"
-import getItemsService from "../../services/items/getItemsService";
 import {getItemsAction} from "../../redux/actions/item.actions";
+import itemsService from "../../services/itemsService";
+import topicsService from "../../services/topicsService";
 
 const TopicList = () => {
     const topics = useSelector((state: RootState)=> state.topics)
@@ -18,12 +18,12 @@ const TopicList = () => {
     const removeTopicHandler = (e: React.MouseEvent, id: string) => {
         e.stopPropagation()
         dispatch(removeTopicAction(id))
-        removeTopicService(id)
+        topicsService.remove(id)
     }
 
     const getItemsHandler = async ( id: string) => {
         dispatch(setCurrentTopicAction(id))
-        const data = await getItemsService(id)
+        const data = await itemsService.itemList(id)
         dispatch(getItemsAction(data))
     }
 

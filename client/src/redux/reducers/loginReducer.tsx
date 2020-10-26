@@ -6,8 +6,8 @@ const initialState: ILoginReducer = {
     currentUser: {
         email: null,
         userId: null,
-        lang: null,
-        theme: null
+        lang: 'en',
+        theme: 'day'
     }
 }
 
@@ -16,7 +16,7 @@ const loginReducer = (state = initialState, action: any) => {
         case LOGIN_USER:
             return {...state, currentUser: action.payload}
         case LOGOUT_USER:
-            return {...state, currentUser: {}}
+            return {...state, currentUser: initialState}
         case CHANGE_THEME:
             return {...state, currentUser: {...state.currentUser, theme: action.payload}}
         default:

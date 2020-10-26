@@ -1,11 +1,9 @@
 import React, {useEffect} from "react";
-import logOutService from "../services/auth/logOutService";
 import {useDispatch, useSelector} from "react-redux";
 import {changeThemeAction, loginAction, logOutAction} from "../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
-import getUserService from "../services/auth/getUserService";
 import {RootState} from "../types";
-import changeThemeService from "../services/auth/changeThemeService";
+import authService from "../services/authService";
 
 const Header = () => {
     const history = useHistory()
@@ -16,7 +14,7 @@ const Header = () => {
 
     const logOutHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault()
-        logOutService()
+        authService.logOut()
         dispatch(logOutAction())
         history.push('/auth')
     }
@@ -24,13 +22,13 @@ const Header = () => {
     useEffect(() => {
         const elems = document.querySelectorAll('select')
         window.M.FormSelect.init(elems)
-        token ? getUserService().then(user => dispatch(loginAction(user))) : history.push('/auth')
+        token ? authService.getUser().then(user => dispatch(loginAction(user))) : history.push('/auth')
     }, [dispatch, history, token, currentUser.userId])
 
 
     const changeThemeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(changeThemeAction(e.target.value))
-        changeThemeService(e.target.value, currentUser.userId)
+        authService.changeTheme(e.target.value, currentUser.userId)
     }
 
     return (

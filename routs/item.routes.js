@@ -5,10 +5,11 @@ const router = Router()
 const config = require('config')
 const dist = config.get('destination')
 
-router.post('/item', auth, async (req, res, nex) => {
+router.post('/item', auth, async (req, res, next) => {
     try {
-        const {title, description, topic} = req.body
-        const item = new Item({title, description, topic, image: req.file.path || null})
+        const itemInfo = {title, description, topic} = req.body
+        if (req.file) itemInfo.image = req.file.path
+        const item = new Item(itemInfo)
         await item.save()
         res.status(201).json({item})
     } catch (e) {
@@ -23,7 +24,7 @@ router.put('/item/:id', auth, async (req, res, nex) => {
         const item = await Item.findByIdAndUpdate(req.params.id, update, {new: true})
         res.status(201).json({item})
     } catch (e) {
-        await res.status(500).json({message: 'Error while editing a Item :('})
+        await res.status(500).json({message: 'Error while editing Item :('})
     }
 })
 

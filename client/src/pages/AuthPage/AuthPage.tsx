@@ -1,24 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import {useHttp} from "../../hooks/http.hook";
+import React, {useState} from 'react'
 import {useMessage} from "../../hooks/message.hook";
-import loginService from "../../services/auth/loginService";
-import registrationService from "../../services/auth/registrationService";
 import {useDispatch} from "react-redux";
 import {loginAction} from "../../redux/actions/login.actions";
 import {useHistory} from "react-router-dom"
 import {isValid} from "../../hooks/validation.hook";
+import authService from "../../services/authService";
 
 export const AuthPage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const message = useMessage()
-    const {loading, error, clearError} = useHttp()
     const [form, setFrom] = useState({email: '', password: ''})
-
-    useEffect(() => {
-        message(error)
-        clearError()
-    }, [message, error, clearError])
 
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFrom({...form, [event.target.name]: event.target.value})
@@ -26,7 +18,7 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         if (isValid('email', form.email) && isValid('password', form.password)) {
             try {
-                const data = await loginService(form.email, form.password)
+                const data = await authService.login(form.email, form.password)
                 dispatch(loginAction(data.user))
                 if (data && data.user) history.push('/')
             } catch (e) {}
@@ -36,7 +28,7 @@ export const AuthPage = () => {
     const registerHandler = async () => {
         if (isValid('email', form.email) && isValid('password', form.password)) {
             try {
-                const data = await registrationService(form.email, form.password)
+                const data = await authService.registration(form.email, form.password)
                 message(data.message)
                 await loginHandler()
             } catch (e) {}
@@ -58,7 +50,6 @@ export const AuthPage = () => {
                                     name='email'
                                     value={form.email}
                                     onChange={changeHandler}
-                                    disabled={loading}
                                 />
                                 <label htmlFor="email">Email</label>
                             </div>
@@ -71,7 +62,6 @@ export const AuthPage = () => {
                                     name='password'
                                     value={form.password}
                                     onChange={changeHandler}
-                                    disabled={loading}
                                 />
 
                                 <label htmlFor="email">Password</label>
@@ -86,7 +76,6 @@ export const AuthPage = () => {
                             <button
                                 className='btn waves-effect  green'
                                 onClick={registerHandler}
-                                disabled={loading}
                             >Registration
                             </button>
                         </div>

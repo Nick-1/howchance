@@ -1,16 +1,15 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {addTopicAction, getTopicsAction} from "../redux/actions/topic.actions";
-import createTopicService from "../services/topics/createTopicService";
 import TopicList from "./List/TopicList";
-import getTopicsService from "../services/topics/getTopicsService";
 import {isValid} from "../hooks/validation.hook";
+import topicsService from "../services/topicsService";
 
 const Topics = () => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const getTopicList = useCallback(async () => {
-        const data = await getTopicsService()
+        const data = await topicsService.topicList()
         dispatch(getTopicsAction(data))
     }, [dispatch])
 
@@ -20,7 +19,7 @@ const Topics = () => {
 
     const pressHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && isValid('title', title)) {
-            const topic = await createTopicService(title)
+            const topic = await topicsService.create(title)
             dispatch(addTopicAction(topic))
             setTitle('')
         }
