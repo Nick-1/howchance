@@ -41,6 +41,7 @@ const ItemModal = () => {
             if (currentItem) {
                 const data = await itemsService.edit(formData, currentItem._id)
                 dispatch(editItemAction(currentItem._id, data))
+                console.log(data)
             } else {
                 const data = await itemsService.create(formData)
                 dispatch(addItemAction(data))

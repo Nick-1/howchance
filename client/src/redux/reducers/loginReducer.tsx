@@ -16,7 +16,7 @@ const loginReducer = (state = initialState, action: any) => {
         case LOGIN_USER:
             return {...state, currentUser: action.payload}
         case LOGOUT_USER:
-            return {...state, currentUser: initialState}
+            return {...state, currentUser: initialState.currentUser}
         case CHANGE_THEME:
             return {...state, currentUser: {...state.currentUser, theme: action.payload}}
         default:

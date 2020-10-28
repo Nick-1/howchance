@@ -12,6 +12,6 @@ let reducers = combineReducers<RootState>(
     }
 )
 
-let store = createStore(reducers,  (window as any)?.__REDUX_DEVTOOLS_EXTENSION__())
+let store = createStore(reducers,  (window as any)?.__REDUX_DEVTOOLS_EXTENSION__?.())
 
 export default store

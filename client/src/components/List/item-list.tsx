@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
-import style from "./List.module.scss"
+import style from "./list.module.scss"
 import {removeItemAction, setCurrentItemAction} from "../../redux/actions/item.actions";
 import itemsService from "../../services/itemsService";
 

@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../types";
 import {removeTopicAction, setCurrentTopicAction} from "../../redux/actions/topic.actions";
-import style from "./List.module.scss"
+import style from "./list.module.scss"
 import {getItemsAction} from "../../redux/actions/item.actions";
 import itemsService from "../../services/itemsService";
 import topicsService from "../../services/topicsService";
@@ -48,5 +48,4 @@ const TopicList = () => {
         </div>
     )
 }
-
 export default TopicList

@@ -13,7 +13,6 @@ const itemReducer = (state = initialState, action: any) => {
             return {...state, itemList: [...state.itemList, action.payload.item]}
         case EDIT_ITEM:
             state.itemList = state.itemList.filter(item => item._id !== action.payload.id)
-            console.log(action.payload)
             return {...state, itemList: [...state.itemList, action.payload.data.item]}
         case REMOVE_ITEM:
             return {...state, itemList: state.itemList.filter(item => item._id !== action.payload)}

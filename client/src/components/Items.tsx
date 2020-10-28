@@ -1,5 +1,5 @@
 import React from "react";
-import ItemList from "./List/ItemList";
+import ItemList from "./List/item-list";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../types";
 import {setCurrentItemAction} from "../redux/actions/item.actions";
